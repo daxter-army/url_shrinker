@@ -6,7 +6,7 @@ const app = express()
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
 
-const port = process.env.PORT
+const port = process.env.port || 5000
 
 app.get('/', async (req, res) => {
     try{
@@ -83,4 +83,6 @@ app.post('/delete', async (req, res) => {
     }
 })
 
-app.listen(port)
+app.listen(port, () => {
+    console.log(`Server is up on ${port}`)
+})
