@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>URL Shrinker</title>
+  <style>
+    * {
+      margin: 0;
+      padding:0;
+    }
+
+    body {
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	    background-size: 600% 600%;
+      background-repeat: no-repeat;
+	    animation: gradient 10s ease infinite;
+      color: whitesmoke;
+      font-size:20px;
+    }
+
+    @keyframes gradient {
+	    0% {
+		    background-position: 0% 50%;
+	    }
+	    50% {
+		    background-position: 100% 50%;
+	    }
+	    100% {
+		    background-position: 0% 50%;
+	    }
+    }
+    h1 {
+      font-size: 60px;
+    }
+
+    table, th, td {
+      text-align: left;
+    }
+
+    table {
+      margin: auto;
+    }
+
+    th, td {
+      padding: 8px;
+      word-wrap: break-word;
+      max-width: 900px;
+    }
+
+    th {
+      font-size: 20px;
+    }
+    a {
+      color: white;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      background-color: #303030;
+      padding: 5px;
+    }
+
+    #info-box {
+      margin: auto;
+      padding: 10px;
+      width: 73%;
+      margin-bottom: 20px;
+    }
+
+    #info {
+      float: left;
+      font-size: 16px;
+      padding:6px;
+    }
+
+    #clear-table {
+      float: right;
+      font-size: 16px;
+      background-color: tomato;
+      color: white;
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid tomato;
+      cursor: pointer;
+    }
+
+    #btn {
+      padding: 8px;
+      background-color: #2ecc71;
+      border: 1px solid #2ecc71;
+      color: white;
+      border-radius: 4px;
+      width: 80px;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 8px;
+      border-radius: 4px;
+      border: none;
+      width: 30%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <br>
+    <h1>URL Shrinker</h1>
+    <br><br>
+    <form action="/shortUrls" method="POST" class="form">
+      <input required placeholder="Enter Url" type="url" name="fullUrl" id="fullUrl" class="form-input">
+      <button id="btn" type="submit">Shrink</button>
+    </form>
+    <br>
+    <br>
+    <div id="info-box">
+      <p id="info">Here's a list of your submitted urls</p>
+      <form action="/delete" method="POST"><button id="clear-table">Clear Results</button></form>
+    </div>
+    <br>
+    <% if (url) {%>
+    <table id="table">
+        <tr>
+          <th>Full URL</th>
+          <th>Short URL</th>
+          <th>Clicks</th>
+        </tr>
+          <% shortUrls.forEach(shortUrl => { %>
+              <tr>
+                <td><a href="<%= shortUrl.fullUrl %>" target="_blank"><%= shortUrl.fullUrl %></a></td>
+                <td><a href="<%= shortUrl.shortUrl %>" target="_blank"><%= shortUrl.shortUrl %></a></td>
+                <td><%= shortUrl.clicks %></td>
+              </tr>
+          <% }) %>
+    </table>
+    <br>
+    <br>
+    <% } %>
+
+    <% if (errorMsg) {%>
+      <p id="not-found">There is nothing like this with us</p>
+    <% } %>
+    <div class="footer">
+      <p><a href="https://github.com/daxter-army/url_shrinker" target="_blank">Made with ❤ by Mehul Singh Teya</a></p>
+    </div>
+  </div>
+</body>
+</html>
